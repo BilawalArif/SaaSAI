@@ -6,6 +6,8 @@ const bodyParser = require("body-parser");
 const app = express();
 const cookieParser = require("cookie-parser");
 const errorHandler = require("./middleware/error");
+const path = require("path");
+
 // connect database
 const mongoose = require("mongoose");
 
@@ -39,6 +41,11 @@ app.use(express.json());
 app.use("/api/auth", require("./routes/auth"));
 app.use("/api/openai", require("./routes/openai"));
 app.use("/api/stripe", require("./routes/stripe"));
+
+app.use(express.static(path.join(__dirname, "../frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "../frontend/build/index.html"));
+});
 
 app.use(errorHandler);
 
