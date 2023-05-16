@@ -1,5 +1,5 @@
 // connect env
-require("dotenv").config({ path: "./config.env" });
+// require("dotenv").config({ path: "./config.env" });
 const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -11,6 +11,9 @@ const path = require("path");
 // connect database
 const mongoose = require("mongoose");
 
+if (process.env.NODE_ENV !== "PRODUCTION") {
+  require("dotenv").config({ path: "./config.env" });
+}
 app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
