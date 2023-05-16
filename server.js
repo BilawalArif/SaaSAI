@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-const errorHandler = require("./client/build/");
+const errorHandler = require("./middleware/error");
 const path = require("path");
 
 
