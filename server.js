@@ -6,7 +6,7 @@ const bodyParser = require("body-parser");
 const app = express();
 const cookieParser = require("cookie-parser");
 const fileUpload = require("express-fileupload");
-const errorHandler = require("./middleware/error");
+const errorHandler = require("./client/build/");
 const path = require("path");
 
 
@@ -49,7 +49,7 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/openai", require("./routes/openai"));
 app.use("/api/stripe", require("./routes/stripe"));
 
-app.use(express.static(path.join(__dirname, "client/build")));
+app.use(express.static(path.join(__dirname, "")));
 app.get("*", (req, res) => {
   res.sendFile(path.resolve(__dirname, "client/build/index.html"));
 });
