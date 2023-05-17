@@ -9,7 +9,6 @@ const fileUpload = require("express-fileupload");
 const errorHandler = require("./middleware/error");
 const path = require("path");
 
-
 // connect database
 const mongoose = require("mongoose");
 
@@ -21,7 +20,6 @@ app.use(cors());
 app.use(cookieParser());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fileUpload());
-
 
 var rawBodySaver = function (req, res, buf, encoding) {
   if (buf && buf.length) {
@@ -49,9 +47,9 @@ app.use("/api/auth", require("./routes/auth"));
 app.use("/api/openai", require("./routes/openai"));
 app.use("/api/stripe", require("./routes/stripe"));
 
-app.use(express.static(path.join(__dirname, "")));
+app.use(express.static(path.join(__dirname, "./client/build")));
 app.get("*", (req, res) => {
-  res.sendFile(path.resolve(__dirname, "client/build/index.html"));
+  res.sendFile(path.resolve(__dirname, "./client/build/index.html"));
 });
 
 app.use(errorHandler);
