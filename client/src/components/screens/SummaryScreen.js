@@ -12,6 +12,8 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import axios from "axios";
 
 const SummaryScreen = () => {
@@ -21,14 +23,18 @@ const SummaryScreen = () => {
   const [text, setText] = useState("");
   const [summary, setSummary] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const summaryHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const { data } = await axios.post("/api/openai/summary", { text });
       setSummary(data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
       if (err.response.data.error) {
         setError(err.response.data.error);
       } else if (err.message) {
@@ -79,7 +85,17 @@ const SummaryScreen = () => {
           </Button>
         </Stack>
       </form>
-      {summary ? (
+      {loading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height={300}
+          mt={4}
+        >
+          <CircularProgress />
+        </Box>
+      ) :summary ? (
         <Card
           sx={{
             mt: 4,

@@ -12,6 +12,8 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
+
 import axios from "axios";
 
 const ScifiScreen = () => {
@@ -21,14 +23,18 @@ const ScifiScreen = () => {
   const [text, setText] = useState("");
   const [image, setImage] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const imageHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const { data } = await axios.post("/api/openai/scifi-img", { text });
       setImage(data);
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
       if (err.response.data.error) {
         setError(err.response.data.error);
       } else if (err.message) {
@@ -79,7 +85,17 @@ const ScifiScreen = () => {
           </Button>
         </Stack>
       </form>
-      {image ? (
+      {loading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height={300}
+          mt={4}
+        >
+          <CircularProgress />
+        </Box>
+      ) : image ? (
         <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
           <img src={image} alt="Scifi" />
         </Box>

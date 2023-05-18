@@ -12,6 +12,7 @@ import {
   useTheme,
 } from "@mui/material";
 import React, { useState } from "react";
+import CircularProgress from "@mui/material/CircularProgress";
 import axios from "axios";
 
 const JavaScriptScreen = () => {
@@ -21,14 +22,18 @@ const JavaScriptScreen = () => {
   const [text, setText] = useState("");
   const [code, setCode] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const codeHandler = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const { data } = await axios.post("/api/openai/js-convert", { text });
       setCode(data.substring(2));
+      setLoading(false);
     } catch (err) {
       console.log(err);
+      setLoading(false);
       if (err.response.data.error) {
         setError(err.response.data.error);
       } else if (err.message) {
@@ -79,7 +84,17 @@ const JavaScriptScreen = () => {
           </Button>
         </Stack>
       </form>
-      {code ? (
+      {loading ? (
+        <Box
+          display="flex"
+          justifyContent="center"
+          alignItems="center"
+          height={300}
+          mt={4}
+        >
+          <CircularProgress />
+        </Box>
+      ) : code ? (
         <Card
           sx={{
             mt: 4,
