@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
-const DOMAIN = "https://saasai.onrender.com/";
+const DOMAIN = "https://saasai.onrender.com";
 const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
 exports.createCheckout = async (req, res) => {

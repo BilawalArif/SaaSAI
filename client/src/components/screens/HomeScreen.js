@@ -1,4 +1,4 @@
-import { Alert, Box, Card, Collapse, Stack, Typography } from "@mui/material";
+import { Alert, Box, Card, Collapse, Stack, Typography, useMediaQuery } from "@mui/material";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
 import FormatAlignLeftRoundedIcon from "@mui/icons-material/FormatAlignLeftRounded";
 import ChatRoundedIcon from "@mui/icons-material/ChatRounded";
@@ -10,7 +10,10 @@ import axios from "axios";
 
 const HomeScreen = () => {
   const navigate = useNavigate();
+  const isMobile = useMediaQuery("(max-width: 600px)");
+
   const [error, setError] = useState("");
+
   //price_1N7L1iFc3AJGERcYkp1OpiR5
 
   const handleCheckout = async (e, url) => {
@@ -65,7 +68,7 @@ const HomeScreen = () => {
       <Typography ml={4} fontWeight="bold" variant="h4" my={2}>
         Text Generation
       </Typography>
-      <Stack direction="row" spacing={6} ml={4}>
+      <Stack direction={isMobile ? "column" : "row"} spacing={6} ml={4}>
         <Card
           onClick={(e) => handleCheckout(e, "/summary")}
           sx={{
