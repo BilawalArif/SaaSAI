@@ -34,10 +34,10 @@ function App() {
             <Route exact path="/login" element={<LoginScreen />} />
             <Route exact path="/register" element={<RegisterScreen />} />
             <Route exact path="/summary" element={<PrivateRoute> <NormalWrapper> <SummaryScreen /> </NormalWrapper> </PrivateRoute>} />
-            <Route exact path="/paragraph" element={<ParagraphScreen />} />
-            <Route exact path="/chatbot" element={<ChatbotScreen />} />
-            <Route exact path="/js-convert" element={<JavaScriptScreen />} />
-            <Route exact path="/scifi-img" element={<ScifiScreen />} />
+            <Route exact path="/paragraph" element={<PrivateRoute> <NormalWrapper> <ParagraphScreen /> </NormalWrapper> </PrivateRoute>} />
+            <Route exact path="/chatbot" element={<PrivateRoute> <NormalWrapper> <ChatbotScreen /></NormalWrapper> </PrivateRoute>} />
+            <Route exact path="/js-convert" element={<PrivateRoute> <NormalWrapper> <JavaScriptScreen /></NormalWrapper> </PrivateRoute>} />
+            <Route exact path="/scifi-img" element={<PrivateRoute> <NormalWrapper> <ScifiScreen /></NormalWrapper> </PrivateRoute>} />
           </Routes>
         </ThemeProvider> 
       </div>

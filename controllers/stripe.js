@@ -1,6 +1,6 @@
 const User = require("../models/User");
 const stripe = require("stripe")(process.env.STRIPE_SECRET);
-const DOMAIN = "http://localhost:3000";
+const DOMAIN = "https://saasai.onrender.com/";
 const timer = (ms) => new Promise((res) => setTimeout(res, ms));
 
 exports.createCheckout = async (req, res) => {
@@ -48,19 +48,19 @@ exports.createPortal = async (req, res) => {
   }
 };
 
-exports.createPortal = async (req, res) => { 
+exports.createPortal = async (req, res) => {
   const { customerId } = req.body;
   try {
-      const portalSession = await stripe.billingPortal.sessions.create({
-          customer: customerId,
-          return_url: `${DOMAIN}/`,
-      });
-      return res.status(200).json(portalSession);
-  } catch(err) {
-      console.log(err.message);
-      return res.status(404).json({ message: err.message });
+    const portalSession = await stripe.billingPortal.sessions.create({
+      customer: customerId,
+      return_url: `${DOMAIN}/`,
+    });
+    return res.status(200).json(portalSession);
+  } catch (err) {
+    console.log(err.message);
+    return res.status(404).json({ message: err.message });
   }
-}
+};
 
 exports.createWebhook = async (req, res) => {
   const sig = req.headers["stripe-signature"];

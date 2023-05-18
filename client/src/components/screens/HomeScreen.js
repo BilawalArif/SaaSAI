@@ -13,7 +13,7 @@ const HomeScreen = () => {
   const [error, setError] = useState("");
   //price_1N7L1iFc3AJGERcYkp1OpiR5
 
-  const handleCheckout = async (e) => {
+  const handleCheckout = async (e, url) => {
     e.preventDefault();
     if (localStorage.getItem("authToken")) {
       try {
@@ -27,7 +27,7 @@ const HomeScreen = () => {
           };
           const sub = await axios.get("/api/auth/subscription", config);
           if (sub.data.subscription) {
-            navigate("/summary");
+            navigate(url);
           } else {
             const session = await axios.post(
               "/api/stripe/checkout",
@@ -67,7 +67,7 @@ const HomeScreen = () => {
       </Typography>
       <Stack direction="row" spacing={6} ml={4}>
         <Card
-          onClick={handleCheckout}
+          onClick={(e) => handleCheckout(e, "/summary")}
           sx={{
             boxShadow: 2,
             borderRadius: 5,
@@ -94,7 +94,7 @@ const HomeScreen = () => {
           </Stack>
         </Card>
         <Card
-          onClick={() => navigate("/paragraph")}
+          onClick={(e) => handleCheckout(e, "/paragraph")}
           sx={{
             boxShadow: 2,
             borderRadius: 5,
@@ -121,7 +121,7 @@ const HomeScreen = () => {
           </Stack>
         </Card>
         <Card
-          onClick={() => navigate("/chatbot")}
+          onClick={(e) => handleCheckout(e, "/chatbot")}
           sx={{
             boxShadow: 2,
             borderRadius: 5,
@@ -153,7 +153,7 @@ const HomeScreen = () => {
         Code Generation
       </Typography>
       <Card
-        onClick={() => navigate("/js-convert")}
+        onClick={(e) => handleCheckout(e, "/js-convert")}
         sx={{
           ml: 4,
           boxShadow: 2,
@@ -185,7 +185,7 @@ const HomeScreen = () => {
         Image Generation
       </Typography>
       <Card
-        onClick={() => navigate("/scifi-img")}
+        onClick={(e) => handleCheckout(e, "/scifi-img")}
         sx={{
           ml: 4,
           boxShadow: 2,
