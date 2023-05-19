@@ -1,4 +1,12 @@
-import { Alert, Box, Card, Collapse, Stack, Typography, useMediaQuery } from "@mui/material";
+import {
+  Alert,
+  Box,
+  Card,
+  Collapse,
+  Stack,
+  Typography,
+  useMediaQuery,
+} from "@mui/material";
 import DescriptionRoundedIcon from "@mui/icons-material/DescriptionRounded";
 import FormatAlignLeftRoundedIcon from "@mui/icons-material/FormatAlignLeftRounded";
 import ChatRoundedIcon from "@mui/icons-material/ChatRounded";
@@ -16,7 +24,7 @@ const HomeScreen = () => {
 
   //price_1N7L1iFc3AJGERcYkp1OpiR5
 
-  const handleCheckout = async (e, url) => {
+  const handleCheckout = async (e) => {
     e.preventDefault();
     if (localStorage.getItem("authToken")) {
       try {
@@ -30,7 +38,7 @@ const HomeScreen = () => {
           };
           const sub = await axios.get("/api/auth/subscription", config);
           if (sub.data.subscription) {
-            navigate(url);
+            navigate("/summary");
           } else {
             const session = await axios.post(
               "/api/stripe/checkout",
@@ -70,7 +78,7 @@ const HomeScreen = () => {
       </Typography>
       <Stack direction={isMobile ? "column" : "row"} spacing={6} ml={4}>
         <Card
-          onClick={(e) => handleCheckout(e, "/summary")}
+          onClick={handleCheckout}
           sx={{
             boxShadow: 2,
             borderRadius: 5,
@@ -97,7 +105,7 @@ const HomeScreen = () => {
           </Stack>
         </Card>
         <Card
-          onClick={(e) => handleCheckout(e, "/paragraph")}
+          onClick={() => navigate("/paragraph")}
           sx={{
             boxShadow: 2,
             borderRadius: 5,
@@ -124,7 +132,7 @@ const HomeScreen = () => {
           </Stack>
         </Card>
         <Card
-          onClick={(e) => handleCheckout(e, "/chatbot")}
+          onClick={() => navigate("/chatbot")}
           sx={{
             boxShadow: 2,
             borderRadius: 5,
@@ -156,7 +164,7 @@ const HomeScreen = () => {
         Code Generation
       </Typography>
       <Card
-        onClick={(e) => handleCheckout(e, "/js-convert")}
+        onClick={() => navigate("/js-convert")}
         sx={{
           ml: 4,
           boxShadow: 2,
@@ -188,7 +196,7 @@ const HomeScreen = () => {
         Image Generation
       </Typography>
       <Card
-        onClick={(e) => handleCheckout(e, "/scifi-img")}
+        onClick={() => navigate("/scifi-img")}
         sx={{
           ml: 4,
           boxShadow: 2,

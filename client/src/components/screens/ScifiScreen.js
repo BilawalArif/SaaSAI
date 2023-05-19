@@ -96,7 +96,14 @@ const ScifiScreen = () => {
           <CircularProgress />
         </Box>
       ) : image ? (
-        <Box sx={{ display: "flex", justifyContent: "center", my: 5 }}>
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            my: 5,
+            
+          }}
+        >
           <img src={image} alt="Scifi" />
         </Box>
       ) : (
@@ -110,6 +117,7 @@ const ScifiScreen = () => {
             borderRadius: 2,
             height: "500px",
             bgcolor: "background.default",
+            overflow: "auto",
           }}
         >
           <Typography
